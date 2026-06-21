@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reflection Log · SALL</title>
+<meta name="description" content="Weekly reflection journal for tracking your vocational English learning progress.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <span class="gauge">EN</span>
+      <span>SALL<br><small>Vocational English</small></span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">☰ Menu</button>
+    <nav class="main-nav">
+      <a href="index.html">Start Here</a>
+      <a href="vocabulary.html">Vocabulary</a>
+      <a href="grammar.html">Grammar</a>
+      <a href="self-check.html">Self-Check</a>
+      <a href="reflection.html" class="active">Reflection Log</a>
+      <a href="feedback.html">Feedback &amp; Teachers</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Reflection &amp; Goal-Setting</span>
+      <h1>Your Learning Journal</h1>
+      <p class="lead">A few honest minutes here each week helps you see your own progress and decide what to focus on next. Your entries are saved on this device only, for this browser session.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="card">
+        <h2 class="mt-0">This week's reflection</h2>
+        <form id="reflectionForm">
+          <div class="field">
+            <label class="field-label" for="weekOf">Week of</label>
+            <input type="text" id="weekOf" placeholder="e.g. 16–20 June">
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="stage">Stage I studied this week</label>
+            <select id="stage">
+              <option value="">Select a stage…</option>
+              <option>Stage 1 – Beginner</option>
+              <option>Stage 2 – Intermediate</option>
+              <option>Stage 3 – Advanced</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="strengths">What I did well (strengths)</label>
+            <textarea id="strengths" placeholder="e.g. I learned 8 new vocabulary words and used them in sentences."></textarea>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="weaknesses">What was difficult (weaknesses)</label>
+            <textarea id="weaknesses" placeholder="e.g. I'm still confused about when to use 'must' vs 'should'."></textarea>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="target">My goal for next week</label>
+            <textarea id="target" placeholder="e.g. Practice Stage 2 grammar and retake the quiz until I score 80%+."></textarea>
+          </div>
+
+          <button type="button" class="btn btn-green" id="saveEntry">Save this week's entry</button>
+          <span class="muted" id="saveMsg" style="margin-left:10px;"></span>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">History</span>
+      <h2>Your past entries</h2>
+      <div id="entryList"></div>
+      <p class="muted" id="noEntries">No entries saved yet this session. Fill in the form above and click "Save".</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="card">
+        <h2 class="mt-0">📨 Share your reflection with a teacher</h2>
+        <p class="muted">Want personal feedback on your progress, not just self-feedback? Send your reflection to a teacher directly.</p>
+        <a href="feedback.html" class="btn">Go to Feedback &amp; Teachers →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>SALL — Self-Assessed Language Learning · Vocational English</span>
+    <span><a href="feedback.html">Get help from a teacher →</a></span>
+  </div>
+</footer>
+
+<script src="assets/script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var STORAGE_KEY = 'sall-reflection-entries';
+
+  function loadEntries(){
+    try{ return JSON.parse(sessionStorage.getItem(STORAGE_KEY) || '[]'); }
+    catch(e){ return []; }
+  }
+  function saveEntries(entries){
+    try{ sessionStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }catch(e){}
+  }
+  function renderEntries(){
+    var entries = loadEntries();
+    var list = document.getElementById('entryList');
+    var none = document.getElementById('noEntries');
+    list.innerHTML = '';
+    if(entries.length === 0){
+      none.style.display = 'block';
+      return;
+    }
+    none.style.display = 'none';
+    entries.slice().reverse().forEach(function(e){
+      var card = document.createElement('div');
+      card.className = 'card';
+      card.style.marginBottom = '14px';
+      card.innerHTML =
+        '<div class="tag-row"><span class="chip">' + (e.weekOf || 'Week not specified') + '</span>' +
+        (e.stage ? '<span class="chip">' + e.stage + '</span>' : '') + '</div>' +
+        '<p><strong>Strengths:</strong> ' + (e.strengths || '—') + '</p>' +
+        '<p><strong>Difficulties:</strong> ' + (e.weaknesses || '—') + '</p>' +
+        '<p><strong>Next goal:</strong> ' + (e.target || '—') + '</p>';
+      list.appendChild(card);
+    });
+  }
+
+  function escapeHTML(s){
+    var div = document.createElement('div');
+    div.textContent = s;
+    return div.innerHTML;
+  }
+
+  document.getElementById('saveEntry').addEventListener('click', function(){
+    var entry = {
+      weekOf: escapeHTML(document.getElementById('weekOf').value.trim()),
+      stage: escapeHTML(document.getElementById('stage').value),
+      strengths: escapeHTML(document.getElementById('strengths').value.trim()),
+      weaknesses: escapeHTML(document.getElementById('weaknesses').value.trim()),
+      target: escapeHTML(document.getElementById('target').value.trim())
+    };
+    if(!entry.strengths && !entry.weaknesses && !entry.target){
+      document.getElementById('saveMsg').textContent = 'Write at least one reflection before saving.';
+      return;
+    }
+    var entries = loadEntries();
+    entries.push(entry);
+    saveEntries(entries);
+    document.getElementById('saveMsg').textContent = '✓ Saved!';
+    document.getElementById('reflectionForm').reset();
+    renderEntries();
+    setTimeout(function(){ document.getElementById('saveMsg').textContent = ''; }, 3000);
+  });
+
+  renderEntries();
+});
+</script>
+</body>
+</html>

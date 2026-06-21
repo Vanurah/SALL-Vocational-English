@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Self-Check Quizzes · SALL</title>
+<meta name="description" content="Automated self-check quizzes and can-do checklist for vocational English, staged by difficulty.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <span class="gauge">EN</span>
+      <span>SALL<br><small>Vocational English</small></span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">☰ Menu</button>
+    <nav class="main-nav">
+      <a href="index.html">Start Here</a>
+      <a href="vocabulary.html">Vocabulary</a>
+      <a href="grammar.html">Grammar</a>
+      <a href="self-check.html" class="active">Self-Check</a>
+      <a href="reflection.html">Reflection Log</a>
+      <a href="feedback.html">Feedback &amp; Teachers</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Self-Check &amp; Self-Regulation</span>
+      <h1>Check what you know</h1>
+      <p class="lead">Pick the quiz that matches the stage you just studied. You'll get feedback on every answer right away — no waiting for a teacher to grade it.</p>
+      <div class="tag-row">
+        <a href="#can-do" class="chip">Can-do checklist</a>
+        <a href="#quiz1" class="chip">Stage 1 quiz</a>
+        <a href="#quiz2" class="chip">Stage 2 quiz</a>
+        <a href="#quiz3" class="chip">Stage 3 quiz</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAN-DO CHECKLIST -->
+  <section class="section" id="can-do">
+    <div class="wrap">
+      <span class="eyebrow">Weekly Self-Assessment</span>
+      <h2>Can-do checklist</h2>
+      <p class="muted">Tick what you can confidently do this week. This is for your own awareness — be honest, not impressive.</p>
+      <div class="card">
+        <div id="candoList" class="checklist">
+          <label><input type="checkbox" id="cd1"> I can introduce myself professionally in English.</label>
+          <label><input type="checkbox" id="cd2"> I can understand basic workplace instructions.</label>
+          <label><input type="checkbox" id="cd3"> I can ask and answer simple questions at work.</label>
+          <label><input type="checkbox" id="cd4"> I can use polite language when talking to customers or supervisors.</label>
+          <label><input type="checkbox" id="cd5"> I can use vocational vocabulary related to my major.</label>
+          <label><input type="checkbox" id="cd6"> I can describe a task or process step-by-step.</label>
+          <label><input type="checkbox" id="cd7"> I can report a simple problem clearly.</label>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="candoFill"></div></div>
+        <p class="progress-label" id="candoLabel">0 of 7 complete (0%)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ STAGE 1 -->
+  <section class="section" id="quiz1">
+    <div class="wrap">
+      <span class="stage-badge s1"><span class="dot"></span>Stage 1 · Beginner Quiz</span>
+      <h2>Vocabulary &amp; Simple Present</h2>
+      <div id="quiz1-container"></div>
+      <div id="quiz1-result"></div>
+    </div>
+  </section>
+
+  <!-- QUIZ STAGE 2 -->
+  <section class="section" id="quiz2">
+    <div class="wrap">
+      <span class="stage-badge s2"><span class="dot"></span>Stage 2 · Intermediate Quiz</span>
+      <h2>Workplace Vocabulary &amp; Modals</h2>
+      <div id="quiz2-container"></div>
+      <div id="quiz2-result"></div>
+    </div>
+  </section>
+
+  <!-- QUIZ STAGE 3 -->
+  <section class="section" id="quiz3">
+    <div class="wrap">
+      <span class="stage-badge s3"><span class="dot"></span>Stage 3 · Advanced Quiz</span>
+      <h2>Professional Vocabulary &amp; Polite/Passive Forms</h2>
+      <div id="quiz3-container"></div>
+      <div id="quiz3-result"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap center">
+      <p>Finished checking? Write down what you learned.</p>
+      <a href="reflection.html" class="btn">Go to Reflection Log →</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>SALL — Self-Assessed Language Learning · Vocational English</span>
+    <span><a href="feedback.html">Get help from a teacher →</a></span>
+  </div>
+</footer>
+
+<script src="assets/script.js"></script>
+<script>
+  initChecklist('candoList', 'candoFill', 'candoLabel', 'sall-candolist');
+
+  // Stage 1: Beginner
+  initQuiz('quiz1-container', [
+    {
+      q: "Choose the correct word: 'My ____ helped me carry the boxes.'",
+      choices: ["colleague", "customer", "deadline", "discrepancy"],
+      answerIndex: 0,
+      explain: "'Colleague' means a person you work with."
+    },
+    {
+      q: "Choose the correct verb form: 'My name ____ Rani.'",
+      choices: ["am", "is", "are", "be"],
+      answerIndex: 1,
+      explain: "Use 'is' with a singular name/subject in the Simple Present."
+    },
+    {
+      q: "Choose the correct verb form: 'My shift ____ at 8 AM.'",
+      choices: ["start", "starts", "starting", "started"],
+      answerIndex: 1,
+      explain: "Add -s to the verb for he/she/it (or a singular noun like 'my shift') in the Simple Present."
+    },
+    {
+      q: "Which word means 'a short rest during work'?",
+      choices: ["uniform", "break", "schedule", "supervisor"],
+      answerIndex: 1,
+      explain: "'Break' is a short rest period during a work shift."
+    }
+  ], 'quiz1-result');
+
+  // Stage 2: Intermediate
+  initQuiz('quiz2-container', [
+    {
+      q: "Which word means 'to check something carefully'?",
+      choices: ["malfunction", "inspect", "complaint", "briefing"],
+      answerIndex: 1,
+      explain: "'Inspect' means to examine something carefully."
+    },
+    {
+      q: "Choose the correct modal: 'You ____ wear safety gloves in this area — it's a rule.'",
+      choices: ["can", "must", "could", "might"],
+      answerIndex: 1,
+      explain: "'Must' expresses a strong obligation or rule."
+    },
+    {
+      q: "Choose the correct instruction form: '____ the machine before cleaning it.'",
+      choices: ["Turning off", "Turns off", "Turn off", "To turn off"],
+      answerIndex: 2,
+      explain: "Instructions use the imperative — the base form of the verb."
+    },
+    {
+      q: "A 'deadline' is...",
+      choices: ["a piece of equipment", "the time by which something must be finished", "a type of complaint", "a daily meeting"],
+      answerIndex: 1,
+      explain: "A deadline is the time limit for finishing a task."
+    }
+  ], 'quiz2-result');
+
+  // Stage 3: Advanced
+  initQuiz('quiz3-container', [
+    {
+      q: "Which word means 'to pass a problem to someone with more authority'?",
+      choices: ["streamline", "liaise", "escalate", "comply"],
+      answerIndex: 2,
+      explain: "'Escalate' means to refer an issue upward when it can't be resolved at your level."
+    },
+    {
+      q: "Make this polite: 'Check the invoice again.' → 'Could you ____?'",
+      choices: ["checking the invoice again", "check the invoice again", "to check the invoice again", "checked the invoice again"],
+      answerIndex: 1,
+      explain: "After 'Could you', use the base form of the verb: 'Could you check...?'"
+    },
+    {
+      q: "Choose the passive voice version of: 'The technician inspects the machine daily.'",
+      choices: [
+        "The machine inspects the technician daily.",
+        "The machine is inspected by the technician daily.",
+        "The machine inspecting daily.",
+        "The technician is inspected daily."
+      ],
+      answerIndex: 1,
+      explain: "Passive voice: object + is/are + past participle (+ by + agent)."
+    },
+    {
+      q: "Which word describes 'a difference between two things that should match'?",
+      choices: ["discrepancy", "compliance", "contingency", "feasibility"],
+      answerIndex: 0,
+      explain: "'Discrepancy' refers to a mismatch between things that should be the same, like an order and an invoice."
+    }
+  ], 'quiz3-result');
+</script>
+</body>
+</html>
